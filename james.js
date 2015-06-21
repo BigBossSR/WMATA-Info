@@ -18,7 +18,7 @@ var userLocation =function (callback) {
 function stationCall (callback) {
 	
 	$.ajax({
-		url: "https://iron-rail.herokuapp.com/v1?latitude=38.9059544&longitude=-77.0419256",
+		url: "https://iron-rail.herokuapp.com/v1?latitude="+userLat+"&longitude="+userLong,
 		method: "get",
 		data: "{rad:200}",
 		success: function(data) {
