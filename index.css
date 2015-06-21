@@ -1,0 +1,142 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+body {
+	background: radial-gradient(RGB(112, 193, 182), RGB(110, 114, 114));
+	font-family: Tahoma, Helvetica, Arial, Sans-Serif;
+}
+
+h1 {
+	text-align: center;
+	font-family: monospace;
+}
+
+h2 {
+	text-align: center;
+}
+
+header {
+	font-size: 45px;
+	letter-spacing: -.18em;
+	background-color: RGBA(0,0,0,.75);
+	color: RGB(165, 231, 223);
+	position: fixed;
+	width: 100%;
+}
+
+main {
+	width: 900px;
+	margin: 0 auto;
+	padding-top: 125px;
+	padding-bottom: 25px;
+}
+
+footer {
+	text-align: center;
+	font-size: 14px;
+	height: 35px;
+}
+
+.train-column, .bike-column {
+	display: inline-block;
+	vertical-align: top;
+	width: 40%;
+}
+
+.train-column {
+
+}
+
+.bike-column {
+	float: right;
+}
+
+
+.station-name {
+	text-align: center;
+	font-weight: bold;
+	margin-top: 5px;
+	color: rgb(35,35,35);
+}
+
+.station-addr {
+	text-align: center;
+	font-size: 14px;
+	color: rgb(55,55,55);
+}
+
+.train-box, .bike-box {
+	margin: 5px;
+	padding: 5px;
+	border-radius: 15px;
+	color: floralwhite;
+	height: 54px;
+	transition: all .5s;
+}
+
+.RD {
+	background: linear-gradient(to right, darkred, black);
+}
+
+.SV {
+	background: linear-gradient(to right, silver, black);
+}
+
+.OR {
+	background: linear-gradient(to right, darkorange, black);
+}
+
+.BL {
+	background: linear-gradient(to right, darkblue, black);
+}
+
+.GR {
+	background: linear-gradient(to right, green, black);
+}
+
+.line {
+	font-size: 35px;
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.arriving {
+	display: inline-block;
+	float: right;
+	margin-right: 10px;
+	text-align: right;
+}
+
+.bike-station {
+	text-align: center;
+}
+
+.bikes {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.docks {
+	display: inline-block;
+	float: right;
+	margin-right: 10px;
+}
+
+.none {
+	background: linear-gradient(to right, rgb(30,20,20), rgb(109,0,3)) ;
+}
+
+.low {
+	background: linear-gradient(to left, rgb(255,170,0), rgb(20,30,20));
+}
+
+.med {
+	background: linear-gradient(to right, rgb(20,30,20), rgb(0,190,0));
+}
+
+.high {
+	background: linear-gradient(to right, rgb(47,68,117), rgb(20,20,30));
+}

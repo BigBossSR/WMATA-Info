@@ -1,25 +1,42 @@
+var userLat
+var userLong
+var bikeBank
+var metroBank
+
 templates = {}
 
 var userLocation =function (callback) {
 	navigator.geolocation.getCurrentPosition(laterFunction)
 
 	function laterFunction (position){
+		userLat = position.coords.latitude
+		userLong = position.coords.longitude
 		callback(position.coords)
 	}
 }
 
 function stationCall (callback) {
-	/*
+	
 	$.ajax({
-		url: "/stations.js",
+		url: "https://iron-rail.herokuapp.com/v1?latitude=38.9059544&longitude=-77.0419256",
 		method: "get",
+		data: "{rad:200}",
 		success: function(data) {
+
+			metroBank = _.filter(data.locations, function(item){
+				return item.type == "metro"
+			})
+
+			bikeBank = _.filter(data.locations, function(item){
+				return item.type == "bikeshare"
+			})
+
 			callback(data)
 		}
 	})
-	*/
+	
 
-	callback(dummyStationData)
+	//callback(dummyStationData)
 }
 
 function bikeCall (callback) {
@@ -35,7 +52,7 @@ function bikeCall (callback) {
 }
 
 
-
+/*
 function renderStations (dataArray, callback) {
 
 	var location = dataArray[0]
@@ -48,8 +65,8 @@ function renderStations (dataArray, callback) {
 	})
 
 	callback(stationList)
-
 }
+*/
 
 function listTrains (array) {
 	array = _.first(array, 4)
@@ -59,18 +76,15 @@ function listTrains (array) {
 		var $htmlString = templates.metroStations(station)
 		$("#metro-location").append($htmlString)
 
-		var soonestTrain = _.sortBy(station.NextTrain, function(train){
+		var soonestTrain = _.sortBy(station.trains, function(train){
 			return parseInt(train.min)
 		})
 
 		_.each(soonestTrain, function(train){
-
-
-			var $htmlString = templates.metroStations(train)
-			$("#metro-location").append($htmlString)
-			//console.log(train)
-			//sort by time, only show 5 pers station?
-			//send to handlebars for station
+			if (parseInt(train.cars) > 0) { 
+				var $htmlString = templates.metroStations(train)
+				$("#metro-location").append($htmlString)
+			}
 		})
 	})
 }
@@ -78,23 +92,23 @@ function listTrains (array) {
 function listBikes (array) {
 	bikeList = _.first(array, 10)
 	bikeList = _.sortBy(bikeList, function(station){
-		return 0 - station.ba
+		return 0 - station.num_bikes
 	})
 	$("#bikes-location").text("")
 	_.each(bikeList, function(station){
-		if (station.ba == 0) {
+		if (station.num_bikes == 0) {
 			station.score = "none"
 		}
 
-		if (0 < station.ba < 4) {
+		if (0 < station.num_bikes < 5) {
 			station.score = "low"
 		}
 
-		if (4 < station.ba < 10) {
+		if (6 < station.num_bikes < 10) {
 			station.score = "med"
 		}
 
-		if (station.ba > 10) {
+		if (station.num_bikes > 10) {
 			station.score = "high"
 		}
 
@@ -119,18 +133,30 @@ $(document).on("ready", function(){
 
 	templates.bikes = Handlebars.compile($("#bikeTemplate").html())
 	
+	/*
 	var theProcess = function() {
 		userLocation(function(location){
-		stationCall(function(stationList){
-			renderStations([location, stationList], listTrains)
+			stationCall(function(stationList){
+				renderStations([location, stationList], listTrains)
+			})
+			bikeCall(function(stationList){
+				renderStations([location, stationList], listBikes)
+			})
 		})
-		bikeCall(function(stationList){
-			renderStations([location, stationList], listBikes)
+	}
+	*/
+
+	var theProcess = function() {
+		userLocation(function(location){
+			stationCall(function(location) {
+				listTrains(metroBank)
+				listBikes(bikeBank)
+				console.log("tick")
+			})
 		})
-	})
 	}
 
-	theProcess()
+	setInterval(theProcess(), 15000)
 
 	//setInterval(theProcess, 45000)
 

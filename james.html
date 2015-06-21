@@ -32,11 +32,11 @@ A Dru and Scott Production. Mandated by The Iron Yard DC.
 	{{#if address}}
 	<div class="station-addr">{{address.Street}}, {{address.City}}</div>
 	{{/if}}
-	{{#if destinationName}}
+	{{#if line}}
 	<div class="train-box {{line}}">
 		<div class="line">{{line}}</div>
 		<div class="arriving">
-			<div class="dest">to {{destinationName}}</div>
+			<div class="dest">to {{direction}}</div>
 			<div class="min">Arriving in: {{min}}</div>
 		</div>
 	</div>
@@ -45,9 +45,9 @@ A Dru and Scott Production. Mandated by The Iron Yard DC.
 
 <template id="bikeTemplate">
 	<div class="bike-box {{score}}">
-		<div class="bike-station">{{s}}</div>
-		<div class="bikes">Free bikes: {{ba}}</div>
-		<div class="docks">Open docks: {{da}}</div>
+		<div class="bike-station">{{name}}</div>
+		<div class="bikes">Free bikes: {{num_bikes}}</div>
+		<div class="docks">Open docks: {{num_empty_docks}}</div>
 	</div>
 </template>
 
@@ -63,7 +63,7 @@ A Dru and Scott Production. Mandated by The Iron Yard DC.
 <script type="text/javascript" src="libs/jquery.js"></script>
 <script type="text/javascript" src="libs/underscore.js"></script>
 <script type="text/javascript" src="libs/handlebars.js"></script>
-<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript" src="james.js"></script>
 <script type="text/javascript" src="stations.js"></script>
 <script type="text/javascript" src="bikeshare_data.js"></script>
 
